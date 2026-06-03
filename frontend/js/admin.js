@@ -226,7 +226,16 @@ document.addEventListener('DOMContentLoaded', () => {
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error exporting CSV:', error);
-      alert('Failed to export CSV');
+      window.showToast('Failed to export CSV', 'error');
+    }
+  });
+
+  // Socket.io Real-Time Updates
+  const socket = io();
+  socket.on('new_submission', (data) => {
+    if (token) {
+      window.showToast(`New message from ${data.name}!`, 'success');
+      fetchDashboardData();
     }
   });
 

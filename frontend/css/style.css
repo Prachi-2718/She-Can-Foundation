@@ -194,3 +194,35 @@ body.dark-theme .navbar {
   background: rgba(108, 92, 231, 0.1); color: var(--primary-color);
 }
 
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.toast {
+  background: var(--white);
+  color: var(--text-main);
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 500;
+  transform: translateX(150%);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-left: 4px solid var(--primary-color);
+}
+.toast.show { transform: translateX(0); }
+.toast.success { border-left-color: var(--success); }
+.toast.success i { color: var(--success); }
+.toast.error { border-left-color: var(--error); }
+.toast.error i { color: var(--error); }
+.toast.info { border-left-color: #0984E3; }
+.toast.info i { color: #0984E3; }
+

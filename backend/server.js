@@ -1,4 +1,6 @@
 const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
 const cors = require('cors');
 const path = require('path');
 const jwt = require('jsonwebtoken');
@@ -10,6 +12,9 @@ require('dotenv').config();
 const { dbRun, dbGet, dbAll } = require('./database');
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, { cors: { origin: '*' } });
+
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'she_can_foundation_super_secret_key_2026';
 
@@ -72,6 +77,10 @@ app.post('/api/submit', async (req, res) => {
       'INSERT INTO submissions (name, email, message) VALUES (?, ?, ?)',
       [name.trim(), email.trim(), message.trim()]
     );
+    
+    // Emit to connected admins
+    io.emit('new_submission', { id: result.id, name, email });
+
     res.status(201).json({
       success: true,
       message: 'Form Submitted Successfully',
@@ -275,6 +284,6 @@ app.get('*', (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

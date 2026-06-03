@@ -78,11 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
           document.getElementById(`group${input.id.charAt(0).toUpperCase() + input.id.slice(1)}`).classList.remove('valid', 'invalid');
         });
       } else {
-        alert('Error: ' + data.error);
+        window.showToast('Error: ' + data.error, 'error');
       }
     } catch (error) {
       console.error('Submission Error:', error);
-      alert('An error occurred while submitting the form. Please try again.');
+      window.showToast('An error occurred. Please try again.', 'error');
     } finally {
       btnSubmit.classList.remove('loading');
       btnSubmit.disabled = false;
