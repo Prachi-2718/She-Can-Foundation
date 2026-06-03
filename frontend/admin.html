@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | She Can Foundation</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- Login Overlay -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-card">
+      <div class="login-header">
+        <h2><i class="fa-solid fa-lock"></i> Admin Portal</h2>
+        <p>Enter your credentials to access the dashboard</p>
+      </div>
+      <form id="loginForm">
+        <div class="form-group">
+          <input type="text" id="username" class="form-input" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+          <input type="password" id="password" class="form-input" placeholder="Password" required>
+        </div>
+        <div class="error-msg text-center" id="loginError" style="margin-bottom: 1rem;"></div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard-wrapper" id="dashboardWrapper" style="display: none;">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h3 class="nav-logo">SheCan<span>.</span></h3>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-inbox"></i> Submissions</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button id="btnLogout" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="top-header">
+        <h2>Dashboard Overview</h2>
+        <div class="user-profile">
+          <div class="avatar"><i class="fa-solid fa-user"></i></div>
+          <span id="adminUsername">Admin</span>
+        </div>
+      </header>
+
+      <div class="content-container">
+        <!-- Stats Row -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(108, 92, 231, 0.1); color: var(--primary-color);"><i class="fa-solid fa-envelope"></i></div>
+            <div class="stat-info">
+              <h4>Total Submissions</h4>
+              <h2 id="statTotal">0</h2>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(0, 184, 148, 0.1); color: var(--success);"><i class="fa-solid fa-envelope-open"></i></div>
+            <div class="stat-info">
+              <h4>New / Unread</h4>
+              <h2 id="statNew">0</h2>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(255, 118, 117, 0.1); color: var(--error);"><i class="fa-solid fa-flag"></i></div>
+            <div class="stat-info">
+              <h4>Flagged</h4>
+              <h2 id="statFlagged">0</h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submissions Table -->
+        <div class="table-container">
+          <div class="table-header">
+            <h3>Recent Submissions</h3>
+            <div class="table-actions">
+              <input type="text" id="searchInput" class="search-input" placeholder="Search...">
+              <select id="statusFilter" class="status-filter">
+                <option value="all">All Status</option>
+                <option value="new">New</option>
+                <option value="read">Read</option>
+                <option value="flagged">Flagged</option>
+              </select>
+            </div>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="submissionsTableBody">
+              <!-- Rows populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

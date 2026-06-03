@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>She Can Foundation | Empowering Women in Tech</title>
+  <meta name="description" content="She Can Foundation supports and empowers women and young girls entering the technology and engineering industries through mentorship, training, and resources.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Vanilla CSS Link -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" id="navLogo">
+        <span class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+        SheCan<span>.</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#programs" class="nav-link">Programs</a>
+        <a href="#contact" class="nav-link btn-contact-nav">Contact Us</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="admin.html" class="btn-admin" id="btnAdminNav">
+          <i class="fa-solid fa-user-shield"></i> Admin Portal
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-tag">Empowering Her Future</div>
+      <h1 class="hero-title">Bridging the Gender Gap in <span>Technology</span></h1>
+      <p class="hero-subtitle">
+        Providing young women with resources, mentorship, and high-impact bootcamps to kickstart successful careers in engineering, software development, and design.
+      </p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">Join Our Network</a>
+        <a href="#programs" class="btn btn-secondary">Explore Programs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About / Programs Section -->
+  <section class="programs-section" id="programs">
+    <div class="section-header">
+      <h2 class="section-title">Our Impact Initiatives</h2>
+      <p class="section-subtitle">We design pathways that enable girls and women to master technical skills and step into leadership roles.</p>
+    </div>
+
+    <div class="programs-grid">
+      <!-- Card 1 -->
+      <div class="program-card">
+        <div class="card-icon"><i class="fa-solid fa-code"></i></div>
+        <h3>Tech Bootcamps</h3>
+        <p>Intensive, hands-on programming courses covering JavaScript, Python, Web Development, and Cloud Architecture.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="program-card">
+        <div class="card-icon"><i class="fa-solid fa-people-arrows"></i></div>
+        <h3>1-on-1 Mentorship</h3>
+        <p>Connecting students directly with experienced female industry professionals from top-tier technology companies.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="program-card">
+        <div class="card-icon"><i class="fa-solid fa-briefcase"></i></div>
+        <h3>Career Placements</h3>
+        <p>Direct recruitment partnerships, portfolio reviews, interview preparation, and internship matching programs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section class="contact-section" id="contact">
+    <div class="contact-container">
+      <div class="contact-info">
+        <h2>Get in Touch</h2>
+        <p>Have questions about our mentorship program, upcoming cohorts, or how you can sponsor our foundation? Send us a message and our team will get back to you within 24 hours.</p>
+        
+        <div class="contact-details">
+          <div class="info-item">
+            <span class="info-icon"><i class="fa-solid fa-envelope"></i></span>
+            <div>
+              <h4>Email us</h4>
+              <p>hello@shecanfoundation.org</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon"><i class="fa-solid fa-location-dot"></i></span>
+            <div>
+              <h4>Headquarters</h4>
+              <p>Innovation Hub, Suite 402, SF</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form-wrapper">
+        <form class="contact-form" id="contactForm" novalidate>
+          <h3 class="form-title">Send a Message</h3>
+          
+          <!-- Name Field -->
+          <div class="form-group" id="groupName">
+            <label for="name" class="form-label">Full Name</label>
+            <div class="input-wrapper">
+              <span class="input-icon"><i class="fa-regular fa-user"></i></span>
+              <input type="text" id="name" name="name" class="form-input" placeholder="e.g., Jane Doe" required minlength="2">
+              <span class="validation-status"><i class="fa-solid"></i></span>
+            </div>
+            <span class="error-msg" id="nameError">Name must be at least 2 characters</span>
+          </div>
+
+          <!-- Email Field -->
+          <div class="form-group" id="groupEmail">
+            <label for="email" class="form-label">Email Address</label>
+            <div class="input-wrapper">
+              <span class="input-icon"><i class="fa-regular fa-envelope"></i></span>
+              <input type="email" id="email" name="email" class="form-input" placeholder="e.g., jane@example.com" required>
+              <span class="validation-status"><i class="fa-solid"></i></span>
+            </div>
+            <span class="error-msg" id="emailError">Please enter a valid email address</span>
+          </div>
+
+          <!-- Message Field -->
+          <div class="form-group" id="groupMessage">
+            <label for="message" class="form-label">Your Message</label>
+            <div class="input-wrapper input-wrapper-textarea">
+              <span class="input-icon textarea-icon"><i class="fa-regular fa-comment-dots"></i></span>
+              <textarea id="message" name="message" class="form-input form-textarea" placeholder="Tell us how we can help..." required minlength="10"></textarea>
+              <span class="validation-status"><i class="fa-solid"></i></span>
+            </div>
+            <span class="error-msg" id="messageError">Message must be at least 10 characters</span>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn-submit" id="btnSubmit">
+            <span class="btn-text">Submit Message</span>
+            <span class="btn-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i></span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Modal Overlay -->
+  <div class="modal-overlay" id="successModal">
+    <div class="success-card">
+      <div class="success-icon-wrapper">
+        <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+          <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+          <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+      </div>
+      <h2>Thank You!</h2>
+      <p class="success-message-text">Form Submitted Successfully</p>
+      <p class="success-info-text">Our coordination team will review your message and reach out shortly.</p>
+      <button class="btn btn-primary" id="btnSuccessClose">Close Window</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <p>&copy; 2026 She Can Foundation. All rights reserved.</p>
+      <div class="footer-meta">
+        <span>Designed for Full Stack Internship Task</span>
+        <span class="divider">|</span>
+        <a href="admin.html" class="footer-admin-link"><i class="fa-solid fa-lock"></i> Staff Login</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vanilla JS Files -->
+  <script src="js/main.js"></script>
+</body>
+</html>
