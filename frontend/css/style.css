@@ -145,3 +145,52 @@ a { text-decoration: none; color: inherit; }
   .contact-container { grid-template-columns: 1fr; gap: 2rem; }
   .hero-title { font-size: 2.5rem; }
 }
+
+/* --- NEW WOW FEATURES --- */
+
+/* Dark Mode Overrides */
+body.dark-theme {
+  --text-main: #E2E8F0;
+  --text-light: #94A3B8;
+  --bg-color: #0F172A;
+  --white: #1E293B;
+  --dark-color: #F8FAFC;
+}
+body.dark-theme .form-input {
+  background: #0F172A;
+  border-color: #334155;
+  color: var(--text-main);
+}
+body.dark-theme .navbar {
+  background: rgba(30, 41, 59, 0.9);
+}
+
+/* Scroll Animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Typewriter Cursor */
+.type-cursor {
+  display: inline-block;
+  width: 4px;
+  background-color: var(--primary-color);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); transition: var(--transition); display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%;
+}
+.theme-toggle:hover {
+  background: rgba(108, 92, 231, 0.1); color: var(--primary-color);
+}
+

@@ -3,6 +3,8 @@ const cors = require('cors');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const { dbRun, dbGet, dbAll } = require('./database');
@@ -12,8 +14,19 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'she_can_foundation_super_secret_key_2026';
 
 // Middleware
+app.use(helmet({
+  contentSecurityPolicy: false // Disabled for Chart.js CDN inline styles
+}));
 app.use(cors());
 app.use(express.json());
+
+// API Rate Limiting to prevent spam
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: { success: false, error: 'Too many requests, please try again later.' }
+});
+app.use('/api/', apiLimiter);
 
 // Serve static frontend files
 app.use(express.static(path.join(__dirname, '../frontend')));
@@ -104,6 +117,42 @@ app.post('/api/admin/login', async (req, res) => {
   } catch (error) {
     console.error('Login Error:', error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+});
+
+// 2.5 Export submissions to CSV (Protected)
+app.get('/api/admin/export', authenticateToken, async (req, res) => {
+  try {
+    const submissions = await dbAll('SELECT * FROM submissions ORDER BY created_at DESC');
+    
+    if (submissions.length === 0) {
+      return res.status(404).json({ success: false, error: 'No data to export' });
+    }
+
+    const headers = ['ID', 'Name', 'Email', 'Message', 'Date', 'Status'];
+    const csvRows = [headers.join(',')];
+
+    submissions.forEach(sub => {
+      // Escape commas and quotes for CSV
+      const message = sub.message.replace(/"/g, '""');
+      const row = [
+        sub.id,
+        `"${sub.name}"`,
+        `"${sub.email}"`,
+        `"${message}"`,
+        `"${new Date(sub.created_at).toISOString()}"`,
+        sub.status
+      ];
+      csvRows.push(row.join(','));
+    });
+
+    const csvString = csvRows.join('\n');
+    res.header('Content-Type', 'text/csv');
+    res.attachment('she-can-submissions.csv');
+    return res.send(csvString);
+  } catch (error) {
+    console.error('Export Error:', error);
+    res.status(500).json({ success: false, error: 'Failed to export data' });
   }
 });
 

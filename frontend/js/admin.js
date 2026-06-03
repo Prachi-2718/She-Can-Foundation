@@ -66,10 +66,59 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('statTotal').textContent = data.stats.total;
         document.getElementById('statNew').textContent = data.stats.new;
         document.getElementById('statFlagged').textContent = data.stats.flagged;
+        
+        renderCharts(data.stats);
       }
     } catch (error) {
       console.error('Error fetching stats:', error);
     }
+  };
+
+  let timelineChartInstance = null;
+  let statusChartInstance = null;
+
+  const renderCharts = (stats) => {
+    // Status Chart
+    const statusCtx = document.getElementById('statusChart').getContext('2d');
+    if (statusChartInstance) statusChartInstance.destroy();
+    statusChartInstance = new Chart(statusCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['New', 'Read', 'Flagged'],
+        datasets: [{
+          data: [stats.new, stats.read, stats.flagged],
+          backgroundColor: ['#00B894', '#94A3B8', '#FF7675'],
+          borderWidth: 0
+        }]
+      },
+      options: { cutout: '70%', plugins: { legend: { position: 'bottom' } } }
+    });
+
+    // Timeline Chart
+    const timelineCtx = document.getElementById('timelineChart').getContext('2d');
+    if (timelineChartInstance) timelineChartInstance.destroy();
+    
+    const dates = stats.timeline.map(t => t.date);
+    const counts = stats.timeline.map(t => t.count);
+
+    timelineChartInstance = new Chart(timelineCtx, {
+      type: 'line',
+      data: {
+        labels: dates.length ? dates : ['No Data'],
+        datasets: [{
+          label: 'Submissions',
+          data: counts.length ? counts : [0],
+          borderColor: '#6C5CE7',
+          backgroundColor: 'rgba(108, 92, 231, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+      }
+    });
   };
 
   const fetchSubmissions = async () => {
@@ -155,6 +204,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Debounce search
     clearTimeout(window.searchTimeout);
     window.searchTimeout = setTimeout(fetchSubmissions, 500);
+  });
+
+  document.getElementById('btnExportCSV').addEventListener('click', async () => {
+    try {
+      const response = await fetch('/api/admin/export', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (response.status === 401 || response.status === 403) {
+        btnLogout.click();
+        return;
+      }
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'she-can-submissions.csv';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error exporting CSV:', error);
+      alert('Failed to export CSV');
+    }
   });
 
   checkAuth();

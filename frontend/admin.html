@@ -13,6 +13,9 @@
   
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/admin.css">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="admin-body">
 
@@ -90,11 +93,24 @@
           </div>
         </div>
 
+        <!-- Analytics Charts -->
+        <div class="charts-grid" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+          <div class="chart-container" style="background: var(--white); padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--shadow-sm);">
+            <h3 style="margin-bottom: 1rem; color: var(--text-main);">Submission Trends (Last 7 Days)</h3>
+            <canvas id="timelineChart" style="max-height: 250px;"></canvas>
+          </div>
+          <div class="chart-container" style="background: var(--white); padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--shadow-sm);">
+            <h3 style="margin-bottom: 1rem; color: var(--text-main);">Status Overview</h3>
+            <canvas id="statusChart" style="max-height: 250px;"></canvas>
+          </div>
+        </div>
+
         <!-- Submissions Table -->
         <div class="table-container">
           <div class="table-header">
             <h3>Recent Submissions</h3>
             <div class="table-actions">
+              <button id="btnExportCSV" class="btn btn-secondary" style="padding: 0.6rem 1rem; font-size: 0.9rem;"><i class="fa-solid fa-download"></i> Export CSV</button>
               <input type="text" id="searchInput" class="search-input" placeholder="Search...">
               <select id="statusFilter" class="status-filter">
                 <option value="all">All Status</option>

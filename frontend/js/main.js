@@ -92,4 +92,77 @@ document.addEventListener('DOMContentLoaded', () => {
   btnSuccessClose.addEventListener('click', () => {
     successModal.classList.remove('active');
   });
+
+  // --- WOW Features ---
+
+  // 1. Theme Toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
+  const currentTheme = localStorage.getItem('theme');
+  if (currentTheme === 'dark') {
+    body.classList.add('dark-theme');
+    themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+  }
+  themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-theme');
+    let theme = 'light';
+    if (body.classList.contains('dark-theme')) {
+      theme = 'dark';
+      themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+    } else {
+      themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    }
+    localStorage.setItem('theme', theme);
+  });
+
+  // 2. Typewriter Effect
+  const words = ['Technology.', 'Engineering.', 'Leadership.', 'Innovation.'];
+  let wordIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  const typewriterText = document.getElementById('typewriterText');
+
+  const type = () => {
+    const currentWord = words[wordIndex];
+    if (isDeleting) {
+      typewriterText.textContent = currentWord.substring(0, charIndex - 1);
+      charIndex--;
+    } else {
+      typewriterText.textContent = currentWord.substring(0, charIndex + 1);
+      charIndex++;
+    }
+
+    let typeSpeed = isDeleting ? 50 : 100;
+
+    if (!isDeleting && charIndex === currentWord.length) {
+      typeSpeed = 2000;
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      wordIndex = (wordIndex + 1) % words.length;
+      typeSpeed = 500;
+    }
+
+    setTimeout(type, typeSpeed);
+  };
+  setTimeout(type, 1000);
+
+  // 3. Scroll Animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+  };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    observer.observe(el);
+  });
+
 });
